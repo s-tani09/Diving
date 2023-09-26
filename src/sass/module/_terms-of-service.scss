@@ -1,0 +1,114 @@
+@use "global" as *;
+
+.terms-of-service__inner {
+  position: relative;
+}
+
+.terms-of-service__inner::before {
+  content: "";
+  position: absolute;
+  width: rem(120);
+  height: rem(55);
+  top: rem(-23);
+  left: rem(15);
+  z-index: -1;
+  background-image: url(../images/common/sub-fish.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  @include mq("md") {
+    width: rem(301);
+    height: rem(138);
+    top: rem(-70);
+    left: calc(50% - min(49vw, rem(620.8)));
+  }
+}
+
+.terms-of-service__inner.inner {
+  max-width: rem(530);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @include mq("md") {
+    max-width: rem(850);
+  }
+}
+
+.terms-of-service__contents {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.terms-of-service__title {
+  font-size: rem(24);
+  line-height: calc(35 / 24);
+  font-weight: $medium;
+  @include mq("md") {
+    font-size: rem(32);
+    line-height: calc(46 / 32);
+  }
+}
+
+.terms-of-service__summary-top {
+  margin-top: rem(40);
+  font-size: rem(16);
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.terms-of-service__summary-bottom {
+  margin-top: rem(34);
+  font-size: rem(16);
+  line-height: 2;
+  @include mq("md") {
+    margin-top: rem(31);
+  }
+}
+
+.terms-of-service__items {
+  margin-top: rem(32);
+}
+
+.terms-of-service__item-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.terms-of-service__text {
+  font-size: rem(16);
+  line-height: 2;
+  font-weight: $regular;
+}
+
+.terms-of-service__text--indent {
+  padding-left: 1.5em;
+  text-indent: -1.1em;
+}
+
+// WordPress
+.terms-of-service__contents ol:first-of-type {
+  margin-top: rem(32);
+}
+
+.terms-of-service__contents p {
+  margin-top: rem(22);
+  font-size: rem(16);
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+}
+.terms-of-service__contents ol {
+  list-style: decimal;
+}
+
+.terms-of-service__contents li {
+  font-size: rem(16);
+  line-height: 2;
+  font-weight: $regular;
+  margin-left: rem(24);
+}
+
+.terms-of-service__contents ul {
+  list-style: none;
+}
+.terms-of-service__contents ul li ul li {
+  list-style: disc;
+}

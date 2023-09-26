@@ -1,0 +1,41 @@
+@use "global" as *;
+
+.page-price {
+  position: relative;
+}
+
+.page-price__inner {
+  position: relative;
+}
+
+.page-price__inner::before {
+  content: "";
+  position: absolute;
+  width: rem(120);
+  height: rem(55);
+  top: rem(-24);
+  left: rem(15);
+  background-image: url(../images/common/sub-fish.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  z-index: 1;
+  @include mq("md") {
+    width: rem(301);
+    height: rem(138);
+    top: rem(-70);
+    left: calc(50% - min(49vw, rem(620.8)));
+    z-index: -1;
+  }
+}
+
+.page-price__inner.inner {
+  max-width: rem(520);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @include mq("md") {
+    max-width: rem(750);
+    width: 100%;
+  }
+}

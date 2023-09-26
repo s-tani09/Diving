@@ -1,0 +1,128 @@
+@use "global" as *;
+
+.tab-menu__lists {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: rem(20);
+  @include mq("md") {
+    gap: rem(20) rem(90);
+  }
+}
+
+.tab-menu__list {
+  text-align: center;
+  max-width: rem(300);
+  width: 100%;
+  padding: rem(10);
+  box-shadow: rem(4) rem(4) rem(10) rgba($color: $black1, $alpha: 0.25);
+  font-size: rem(14);
+  line-height: calc(20 / 14);
+  font-weight: $regular;
+  color: $green1;
+  background-color: $gray2;
+  @include mq("md") {
+    padding: rem(31) rem(5) rem(21);
+    position: relative;
+    font-size: rem(24);
+    line-height: calc(35 / 24);
+  }
+}
+
+.tab-menu__list span {
+  display: inline-block;
+}
+
+.tab-menu__list.is-active {
+  background-color: $green1;
+  color: $white;
+}
+
+.tab-menu__list:hover {
+  cursor: pointer;
+}
+
+.tab-whale-icon span {
+  @include mq("md") {
+    position: relative;
+    padding-left: rem(70);
+  }
+}
+
+.tab-whale-icon span::before {
+  @include mq("md") {
+    content: "";
+    position: absolute;
+    width: rem(64);
+    height: rem(64);
+    top: rem(-18);
+    left: rem(-6);
+    background-image: url(../images/common/tab-whale.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: 0.3s background-color;
+  }
+}
+
+.tab-whale-icon.is-active span::before {
+  @include mq("md") {
+    background-image: url(../images/common/tab-whale-hover.png);
+  }
+}
+
+.tab-shark-icon span {
+  @include mq("md") {
+    position: relative;
+    padding-left: rem(70);
+  }
+}
+
+.tab-shark-icon span::before {
+  @include mq("md") {
+    content: "";
+    position: absolute;
+    width: rem(64);
+    height: rem(64);
+    top: rem(-21);
+    left: rem(-1);
+    background-image: url(../images/common/tab-shark.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: 0.3s background-color;
+  }
+}
+
+.tab-shark-icon.is-active span::before {
+  @include mq("md") {
+    background-image: url(../images/common/tab-shark-hover.png);
+  }
+}
+
+.tab-fish-icon span {
+  @include mq("md") {
+    position: relative;
+    padding-left: rem(70);
+  }
+}
+.tab-fish-icon span::before {
+  @include mq("md") {
+    content: "";
+    position: absolute;
+    width: rem(64);
+    height: rem(64);
+    top: rem(-16);
+    left: rem(-6);
+    background-image: url(../images/common/tab-fish.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: 0.3s background-color;
+  }
+}
+
+.tab-fish-icon.is-active span::before {
+  @include mq("md") {
+    background-image: url(../images/common/tab-fish-hover.png);
+  }
+}

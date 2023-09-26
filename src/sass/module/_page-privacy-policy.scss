@@ -1,0 +1,96 @@
+@use "global" as *;
+
+.privacy-policy__inner {
+  position: relative;
+}
+
+.privacy-policy__inner::before {
+  content: "";
+  position: absolute;
+  width: rem(120);
+  height: rem(55);
+  top: rem(-23);
+  left: rem(15);
+  z-index: -1;
+  background-image: url(../images/common/sub-fish.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  @include mq("md") {
+    width: rem(301);
+    height: rem(138);
+    top: rem(-70);
+    left: calc(50% - min(49vw, rem(620.8)));
+  }
+}
+
+.privacy-policy__inner.inner {
+  max-width: rem(530);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  @include mq("md") {
+    max-width: rem(850);
+  }
+}
+
+.privacy-policy__contents {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.privacy-policy__title {
+  font-size: rem(24);
+  line-height: calc(35 / 24);
+  font-weight: $medium;
+  @include mq("md") {
+    font-size: rem(32);
+    line-height: calc(46 / 32);
+  }
+}
+
+.privacy-policy__summary-bottom {
+  margin-top: rem(34);
+  font-size: rem(16);
+  line-height: 2;
+  @include mq("md") {
+    margin-top: rem(31);
+  }
+}
+
+.privacy-policy__item-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.privacy-policy__text--indent {
+  padding-left: 1.5em;
+  text-indent: -1.1em;
+}
+// WordPress
+.privacy-policy__contents ol:first-of-type {
+  margin-top: rem(32);
+}
+
+.privacy-policy__contents p {
+  margin-top: rem(22);
+  font-size: rem(16);
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+}
+.privacy-policy__contents ol {
+  list-style: decimal;
+}
+
+.privacy-policy__contents li {
+  font-size: rem(16);
+  line-height: 2;
+  font-weight: $regular;
+  margin-left: rem(24);
+}
+
+.privacy-policy__contents ul {
+  list-style: none;
+}
+.privacy-policy__contents ul li ul li {
+  list-style: disc;
+}

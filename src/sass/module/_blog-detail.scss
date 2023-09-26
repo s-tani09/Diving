@@ -1,0 +1,144 @@
+@use "global" as *;
+
+.blog-detail {
+  @include mq("md") {
+    max-width: rem(700);
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+.blog-detail__mata {
+}
+
+.blog-detail__date {
+  display: inline-block;
+  font-size: rem(14);
+  line-height: calc(18 / 14);
+  font-weight: $regular;
+}
+
+.blog-detail__title {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: rem(24);
+  font-weight: $medium;
+  line-height: calc(35 / 24);
+  padding-bottom: rem(6);
+  border-bottom: rem(1) solid $green1;
+  @include mq("md") {
+    font-size: rem(32);
+    padding-bottom: rem(2);
+  }
+}
+
+.blog-detail__image {
+  margin-top: rem(22);
+  @include mq("md") {
+    margin-top: rem(35);
+  }
+}
+
+.blog-detail__image img {
+  aspect-ratio: 345/231;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  @include mq("md") {
+    aspect-ratio: 700/468;
+  }
+}
+
+.blog-detail__text {
+  margin-top: rem(27);
+  @include mq("md") {
+    margin-top: rem(44);
+  }
+  nav {
+    margin-top: rem(24);
+    @include mq("md") {
+      margin-top: rem(40);
+    }
+  }
+
+  ul {
+    margin-top: rem(20);
+    margin-left: rem(27);
+    position: relative;
+  }
+
+  li {
+    position: relative;
+    font-size: rem(16);
+    line-height: calc(24 / 16);
+    font-weight: $regular;
+    font-family: "Noto Sans JP", sans-serif;
+  }
+
+  li:not(:first-child) {
+    margin-top: rem(2);
+  }
+
+  li::before {
+    content: "";
+    position: absolute;
+    width: rem(18);
+    height: rem(18);
+    top: rem(2);
+    left: rem(-25);
+    background-image: url(../images/common/starfish.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  p {
+    display: block;
+    margin-top: rem(20);
+  }
+}
+
+.blog-detail__pagenavi {
+  margin-top: rem(38);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  @include mq("md") {
+    margin-top: rem(80);
+  }
+}
+
+.blog-detail__pagenavi a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: rem(38);
+  height: rem(38);
+  background-color: $white;
+  color: $green1;
+  font-family: $second-font-family;
+  font-weight: $bold;
+  font-size: rem(16);
+  border: rem(1) solid $green1;
+  transition: 0.3s ease;
+  margin: 0 rem(2);
+  padding: rem(6) rem(12);
+  @include mq("md") {
+    margin: 0 rem(4);
+  }
+}
+
+.blog-detail__pagenavi a:hover {
+  color: $white;
+  background-color: $green1;
+  opacity: 1;
+}
+
+.blog-detail__pagenavi a:first-child {
+  margin-right: rem(30);
+}
+.blog-detail__pagenavi a:last-child {
+  margin-left: rem(30);
+}
+
+.wp-block-image {
+  margin-top: rem(20);
+}

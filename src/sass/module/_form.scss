@@ -1,0 +1,305 @@
+@use "global" as *;
+
+.form__items.error {
+  margin-top: rem(40);
+}
+
+.form__item {
+  padding-bottom: rem(24);
+  border-bottom: rem(2) dotted $green1;
+  @include mq("md") {
+    padding-bottom: rem(39);
+  }
+}
+
+.form__item:not(:first-child) {
+  padding-top: rem(24);
+  @include mq("md") {
+    padding-top: rem(39);
+  }
+}
+
+.form__content {
+  @include mq("md") {
+    display: flex;
+  }
+}
+
+.form__label {
+  @include mq("md") {
+    width: calc(100% - 68.5714%);
+  }
+}
+
+.form__label span {
+  display: inline-block;
+  margin-left: rem(8);
+  width: rem(61);
+  padding: rem(2) 0;
+  text-align: center;
+  font-size: rem(12);
+  background-color: $red;
+  color: $white;
+}
+
+.form__input {
+  margin-top: rem(14);
+  @include mq("md") {
+    margin-top: 0;
+    width: 68.5714%;
+  }
+}
+
+.form__input.form__input--checkbox {
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(14);
+}
+
+.form__input.form__input--select {
+  position: relative;
+}
+
+.form__input.form__input--select::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: rem(9) rem(6) 0 rem(6);
+  border-color: $green1 transparent transparent transparent;
+  right: rem(8);
+  top: 40%;
+  cursor: pointer;
+}
+
+.form__input-text {
+  width: 100%;
+  padding: rem(10) rem(8);
+  border: rem(1) solid $green1;
+  font-size: rem(12);
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.form__input-text.form__input-text--select {
+  @include mq("md") {
+    padding: rem(5) rem(8);
+  }
+}
+
+.form__input-text.error {
+  border: rem(1) solid $red;
+  background-color: rgba($color: $red, $alpha: 0.2);
+}
+
+.form__input-text::placeholder {
+  color: $gray2;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.form__input-text.error::placeholder {
+  color: $white;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.form__input-text + span {
+  display: block;
+  padding-left: rem(22);
+  position: relative;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.form__input-text + span::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-bottom: rem(2.5) solid $red;
+  border-left: rem(2.5) solid $red;
+  opacity: 0;
+  height: rem(4);
+  width: rem(10);
+  top: rem(2);
+  left: rem(6);
+  transform: rotate(-40deg) translateX(-50%);
+  @include mq("md") {
+    width: rem(9);
+    height: rem(5);
+    opacity: 0;
+  }
+}
+
+input:checked + span::after {
+  opacity: 1;
+}
+
+.form__input-text.form__input-text--textarea {
+  height: rem(200);
+  resize: none;
+}
+
+.form__privacy {
+  margin-top: rem(29);
+  @include mq("md") {
+    margin-top: rem(80);
+    text-align: center;
+  }
+}
+
+.form__privacy-inner {
+  max-width: 85%;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.form__privacy-text {
+  font-size: rem(14);
+  line-height: calc(22 / 14);
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.form__privacy-text + span {
+  display: inline-block;
+  padding-left: rem(30);
+  position: relative;
+  @include mq("md") {
+    padding-left: rem(38);
+  }
+}
+
+.form__privacy-text + span::before {
+  content: "";
+  position: absolute;
+  width: rem(22);
+  height: rem(22);
+  top: 0;
+  left: 0;
+  border: rem(1) solid $green1;
+  background-color: $white;
+  cursor: pointer;
+}
+
+.form__privacy-text + span::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-bottom: rem(3) solid $red;
+  border-left: rem(3) solid $red;
+  opacity: 0;
+  height: rem(6);
+  width: rem(10);
+  top: 13%;
+  left: rem(12);
+  transform: rotate(-45deg) translate(-50%, -50%);
+  cursor: pointer;
+  @include mq("md") {
+    top: 20%;
+    left: 3%;
+  }
+}
+
+input:checked + span::after {
+  opacity: 1;
+}
+
+.form__button {
+  position: relative;
+  text-align: center;
+  margin-top: rem(24);
+  @include mq("md") {
+    margin-top: rem(30);
+  }
+}
+
+// WordPress
+input[type="checkbox"]:checked + .contact-form__label::after {
+  opacity: 1;
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none; /* デフォルトの矢印を非表示 */
+}
+
+.wpcf7-spinner {
+  display: none;
+}
+
+.wpcf7-form-control.wpcf7-checkbox .wpcf7-validates-as-required {
+  display: flex;
+  flex-direction: column;
+}
+
+.wpcf7-list-item-label {
+  position: relative;
+  cursor: pointer;
+  font-size: rem(16);
+}
+
+.wpcf7-list-item-label::before {
+  border: rem(1) solid $green1;
+  display: inline-block;
+  height: rem(14);
+  margin: 0;
+  margin-top: rem(5);
+  vertical-align: top;
+  width: rem(14);
+  margin-right: rem(10);
+}
+
+.wpcf7-list-item-label::after {
+  border-bottom: rem(3) solid $red;
+  border-right: rem(3) solid $red;
+  content: "";
+  display: block;
+  height: rem(10);
+  position: absolute;
+  top: rem(7);
+  transform: rotate(45deg);
+  width: rem(6);
+  left: rem(4);
+  opacity: 0;
+}
+
+input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.wpcf7-form-control {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.wpcf7 .wpcf7-submit:disabled {
+  cursor: pointer;
+}
+
+.wpcf7-not-valid-tip {
+  opacity: 0;
+}
+
+.wpcf7-not-valid {
+  // border: rem(1) solid $red;
+  background-color: rgba($color: $red, $alpha: 0.2);
+}
+
+.wpcf7-not-valid#nama-1,
+.wpcf7-not-valid#email-1,
+.wpcf7-not-valid#tel-1,
+.wpcf7-not-valid#textarea-1 {
+  border: rem(1) solid $red;
+  background-color: rgba($color: $red, $alpha: 0.2);
+}
+
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.payment-required .wpcf7-response-output {
+  border-color: transparent;
+  color: $red;
+  text-align: center;
+}

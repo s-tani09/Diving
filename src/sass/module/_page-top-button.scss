@@ -1,0 +1,30 @@
+@use "global" as *;
+
+.page-top-button {
+  position: fixed;
+  bottom: rem(16);
+  right: calc(50% - min(49.5vw, rem(160)));
+  width: rem(48);
+  height: rem(48);
+  background-color: $white;
+  border-radius: 50%;
+  z-index: 100;
+  @include mq("md") {
+    right: calc(50% - min(49.5vw, rem(700)));
+    width: rem(80);
+    height: rem(80);
+  }
+}
+
+.page-top-button a {
+  transition: opacity 0.3s;
+}
+
+.page-top-button a:hover {
+  opacity: 0.7;
+}
+
+.page-top-button img {
+  transform: rotate(-90deg);
+  width: 100%;
+}

@@ -1,0 +1,56 @@
+@use "global" as *;
+
+.page-contact__error {
+  // display: none;
+  margin: 0 auto;
+}
+
+.page-contact__error.error {
+  display: block;
+}
+
+.page-contact__error-text {
+  font-size: rem(14);
+  line-height: calc(20 / 14);
+  color: $red;
+  padding-left: 1em;
+  text-indent: -1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-contact__inner {
+  position: relative;
+}
+
+.page-contact__inner::before {
+  content: "";
+  position: absolute;
+  width: rem(120);
+  height: rem(55);
+  top: rem(-24);
+  left: rem(15);
+  z-index: -1;
+  background-image: url(../images/common/sub-fish.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  @include mq("md") {
+    width: rem(301);
+    height: rem(138);
+    top: rem(-70);
+    left: calc(50% - min(49vw, rem(620.8)));
+  }
+}
+
+.page-contact__inner.inner {
+  max-width: rem(520);
+  width: 100%;
+  @include mq("md") {
+    max-width: rem(750);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

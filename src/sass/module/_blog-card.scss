@@ -1,0 +1,70 @@
+@use "global" as *;
+
+.blog-card {
+  box-shadow: rem(2) rem(2) rem(10) rgba($color: $black, $alpha: 0.25);
+  background-color: $white;
+}
+
+.blog-card a {
+  display: inline-block;
+  padding: rem(16) rem(16) rem(20);
+  transition: opacity 0.3s;
+  height: 100%;
+  @include mq("md") {
+    padding-bottom: rem(21);
+  }
+}
+
+.blog-card a:hover {
+  opacity: 0.8;
+}
+
+.blog-card__image {
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+}
+
+.blog-card__image img {
+  aspect-ratio: 301 / 201;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+
+.blog-card a:hover .blog-card__image img {
+  transform: scale(1.1); /* 拡大 */
+}
+
+.blog-card__body {
+  margin-top: rem(22);
+  @include mq("md") {
+    margin-top: rem(19);
+  }
+}
+
+.blog-card__date {
+  display: inline-block;
+  font-size: rem(12);
+  line-height: 1;
+}
+
+.blog-card__text-block {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+.blog-card__title {
+  font-size: rem(16);
+  font-weight: $medium;
+  line-height: 1.5;
+  padding-bottom: rem(2);
+  border-bottom: rem(1) solid $green1;
+}
+
+.blog-card__text {
+  margin-top: rem(19);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}

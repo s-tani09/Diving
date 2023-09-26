@@ -1,0 +1,16 @@
+@use "global" as *;
+
+.body-404 {
+  background-color: $green1;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: $green1;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
