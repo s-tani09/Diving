@@ -32,21 +32,25 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
       alt="綺麗なエメラルドグリーンの海底を歩くウミガメ" />
   </div>
 </div>
-
+<!-- main visual -->
 <div class="mv">
   <div class="mv__inner">
     <div class="mv__slider swiper js-mv-slider">
       <div class="mv__slider-wrapper swiper-wrapper">
         <?php for ($i = 1; $i <= 4; $i++) : ?>
         <?php
-            $main_pc_image = esc_url(get_field('main-pc_' . $i));
-            $main_sp_image = esc_url(get_field('main-sp_' . $i));
-            $main_alt = get_field('main-alt_' . $i);
-            if ($main_pc_image && $main_sp_image) :?>
+          $slide_img_pc = get_field('main_pc');
+          $slide_img_sp = get_field('main_sp');
+          $slide_img_alt = get_field('main_alt');
+          $main_pc_image = esc_url($slide_img_pc['main-pc_' . $i]);
+          $main_sp_image = esc_url($slide_img_sp['main-sp_' . $i]);
+          $main_img_alt = esc_attr($slide_img_alt['main-alt_' . $i]);
+          if ($main_pc_image && $main_sp_image) :
+          ?>
         <div class="mv__slider-image swiper-slide">
           <picture>
             <source media="(min-width: 768px)" srcset="<?php echo $main_pc_image; ?>" />
-            <img src="<?php echo $main_sp_image; ?>" alt="<?php echo esc_attr($main_alt); ?>" />
+            <img src="<?php echo $main_sp_image; ?>" alt="<?php echo $main_img_alt; ?>" />
           </picture>
         </div>
         <?php endif; ?>
@@ -60,7 +64,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
   </div>
 </div>
 
-
+<!-- campaign -->
 <section class="campaign top-campaign">
   <div class="campaign__inner inner">
     <div class="campaign__title section-title">
@@ -68,14 +72,14 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
       <h2 class="section-title__sub">キャンペーン</h2>
     </div>
     <div class="campaign__slider campaign-cards swiper js-campaign-swiper">
-      <?php
-      $args = [
-        'post_type' => 'campaign',
-        'posts_per_page' => 10
-      ];
-      $the_query = new WP_Query($args); ?>
-      <?php if ($the_query->have_posts()) : ?>
       <ul class="campaign-cards__items swiper-wrapper">
+        <?php
+        $args = [
+          'post_type' => 'campaign',
+          'posts_per_page' => 10
+        ];
+        $the_query = new WP_Query($args); ?>
+        <?php if ($the_query->have_posts()) : ?>
         <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
         <li class="campaign-cards__item campaign-card swiper-slide">
           <?php if (has_post_thumbnail()) : ?>
@@ -91,33 +95,33 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
           <div class="campaign-card__body">
             <div class="campaign-card__category">
               <?php
-                $terms = get_the_terms($post->ID, 'campaign_category');
-                foreach ($terms as $term) {
-                  echo $term->name;
-                }
-                ?>
+            $terms = get_the_terms($post->ID, 'campaign_category');
+            foreach ($terms as $term) :
+              echo $term->name;
+            endforeach; ?>
             </div>
             <h3 class="campaign-card__title"><?php the_title(); ?></h3>
           </div>
           <div class="campaign-card__textBlock">
             <p class="campaign-card__text">全部コミコミ(お一人様)</p>
             <div class="campaign-card__price">
-              <?php if (get_field('price')) : ?>
-              <?php $price = floatval(str_replace(',', '', get_field('price'))); ?>
-              <p class="campaign-card__price-regular">&yen;<?php echo number_format($price); ?></p>
-              <?php endif; ?>
-
-              <?php if (get_field('price_sale')) : ?>
-              <?php $price_sale = floatval(str_replace(',', '', get_field('price_sale'))); ?>
-              <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
-              <?php endif; ?>
+              <div class="campaign-card__price">
+                <?php
+                $amount = get_field('amount');
+                if ($amount) :
+                  $price = $amount['price'];
+                  $price_sale = $amount['price_sale']; ?>
+                <p class="campaign-card__price-regular">&yen;<?php echo number_format($price); ?></p>
+                <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
+                <?php endif; ?>
+              </div>
             </div>
           </div>
         </li>
         <?php endwhile; ?>
+        <?php wp_reset_postdata(); ?>
+        <?php endif; ?>
       </ul>
-      <?php wp_reset_postdata(); ?>
-      <?php endif; ?>
     </div>
     <div class="campaign-button-prev swiper-button-prev js-campaign-button-prev u-desktop"></div>
     <div class="campaign-button-next swiper-button-next js-campaign-button-next u-desktop"></div>
@@ -127,7 +131,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
   </div>
 </section>
 
-
+<!-- About us -->
 <section class="about top-about">
   <div class="about__inner inner">
     <div class="about__title section-title">
@@ -157,7 +161,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </section>
-
+<!-- information -->
 <section class="information top-information">
   <div class="information__inner inner">
     <div class="information__title section-title">
@@ -186,7 +190,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </section>
-
+<!-- Blog -->
 <section class="blog top-blog">
   <div class="blog__bg-image u-desktop">
     <img src="<?php echo esc_url(get_template_directory_uri()); ?>/dist/assets/images/common/blog-bg.jpg"
