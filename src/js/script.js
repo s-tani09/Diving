@@ -117,7 +117,7 @@ var swiper = new Swiper(".js-mv-slider", {
     delay: 4000,
     disableOnInteraction: false,
   },
-  speed: 2000,
+  speed: 3000,
 });
 
 // campaign - swiper
@@ -220,7 +220,7 @@ $(document).ready(function () {
   }
   $('a[href^="#"]').click(function () {
     // スクロールの速さを指定します。この場合は600ミリ秒かけてスクロールします。
-    const speed = 600;
+    const speed = 800;
     // クリックされたリンクのhref属性の値（ターゲットセクションのID）を取得します。
     let href = $(this).attr("href");
     let target = $(href == "#" || href == "" ? "html" : href);

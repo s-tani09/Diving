@@ -23,7 +23,6 @@
   </div>
   <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
-
   <section class="post-blog sub-blog">
     <div class="post-blog__inner inner">
       <div class="post-blog__contents">
@@ -32,7 +31,7 @@
         <div class="post-blog__main-content blog-detail">
           <div class="blog-detail__mata">
             <time class="blog-detail__date" datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y.m.d'); ?></time>
-            <h2 class="blog-detail__title"><?php echo the_title(); ?></h2>
+            <h2 class="blog-detail__title"><?php the_title(); ?></h2>
           </div>
           <?php if (has_post_thumbnail()): ?>
           <div class="blog-detail__image">
@@ -46,7 +45,6 @@
           <?php else: ?>
           <p>記事が見つかりませんでした</p>
           <?php endif; ?>
-
           <div class="blog-detail__pagenavi">
             <?php if (get_previous_post()):?>
             <?php previous_post_link('%link', '<'); ?>

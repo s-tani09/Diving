@@ -1,6 +1,4 @@
 <?php get_header(); ?>
-
-
 <div class="wrap">
   <main>
     <section class="not-found sub-not-found">
@@ -19,6 +17,4 @@
       </div>
     </section>
   </main>
-
-
   <?php get_footer(); ?>

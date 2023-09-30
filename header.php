@@ -154,7 +154,7 @@ $sitemap = esc_url( home_url( '/site-map/' ) );
           <div class="sp-nav__right">
             <ul class="sp-nav__right-items">
               <li class="sp-nav__right-item">
-                <a href="<?php echo $faq; ?>">お客様の声</a>
+                <a href="<?php echo $voice; ?>">お客様の声</a>
               </li>
             </ul>
             <ul class="sp-nav__right-items">

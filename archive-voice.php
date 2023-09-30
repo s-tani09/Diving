@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <main>
   <div class="sub-mv">
     <div class="sub-mv__inner">
@@ -16,34 +15,33 @@
       </div>
     </div>
   </div>
-
   <?php get_template_part('parts/breadcrumb') ?>
-
   <section class="archive-voice sub-voice">
     <div class="archive-voice__inner inner">
       <div class="archive-voice__categories categories">
         <div class="categories__inner">
-          <ul class="categories__items">
-            <li class="categories__item current">
-              <a href="<?php echo esc_url(home_url('/voice/')); ?>">ALL</a>
+          <ul class="categories__items" id="categories">
+            <li class="categories__item <?php if (is_front_page() || is_post_type_archive('voice')) echo 'current'; ?>">
+              <a class="js-categories-item" href="<?php echo esc_url(home_url('/voice/')); ?>">ALL</a>
             </li>
             <?php
             $args = [
               'taxonomy' => 'voice_category'
             ];
-            $terms = get_terms($args);
-            ?>
+            $terms = get_terms($args); ?>
             <?php foreach ($terms as $term): ?>
-            <li class="categories__item">
-              <a class="js-categories-item" href="<?php echo get_term_link($term->term_id); ?>">
-                <?php echo $term->name; ?>
-              </a>
+            <?php
+              $term_link = get_term_link($term->term_id);
+              if (is_wp_error($term_link)) continue; // エラーチェック
+              ?>
+            <li class="categories__item <?php if (is_tax('campaign_category', $term->slug)) echo 'current'; ?>">
+              <a class="js-categories-item"
+                href="<?php echo esc_url($term_link); ?>"><?php echo esc_html($term->name); ?></a>
             </li>
             <?php endforeach; ?>
           </ul>
         </div>
       </div>
-
       <div class="archive-voice__cards voice-cards">
         <?php if (have_posts()): while (have_posts()): the_post(); ?>
         <div class="voice-cards__container voice-card js-voice-content">
@@ -51,16 +49,16 @@
             <div class="voice-card__box">
               <div class="voice-card__meta">
                 <?php
-                  $age = get_field('voice-age');
-                  $gender = get_field('voice-gender');
-                  ?>
-                <p class="voice-card__age">
-                  <?php if ($age): ?><?php echo esc_html($age); ?><?php endif; ?>(<?php echo esc_html($gender); ?>)
+                $customer_info = get_field('customer_info'); // グループフィールド 'customer_info' を取得
+                // グループフィールド内のサブフィールドを取得
+                $age = isset($customer_info['voice-age']) ? esc_html($customer_info['voice-age']) : '';
+                $gender = isset($customer_info['voice-gender']) ? esc_html($customer_info['voice-gender']) : ''; ?>
+                <p class="voice-card__age"><?php if ($age): ?><?php echo $age; ?><?php endif; ?>(<?php echo $gender; ?>)
                 </p>
                 <?php
-                  $taxonomy_terms = get_the_terms($post->ID, 'voice_category');
-                  if ($taxonomy_terms): ?>
-                <p class="voice-card__category"><?php echo $taxonomy_terms[0]->name; ?></p>
+                $taxonomy_terms = get_the_terms($post->ID, 'voice_category');
+                if ($taxonomy_terms): ?>
+                <p class="voice-card__category"><?php echo esc_html($taxonomy_terms[0]->name); ?></p>
                 <?php endif; ?>
               </div>
               <h3 class="voice-card__title"><?php echo wp_trim_words(get_the_title(), 22, '…'); ?></h3>
@@ -82,12 +80,10 @@
       </div>
     </div>
   </section>
-
   <div class="pagenavi">
     <div class="pagenavi__inner inner">
       <?php wp_pagenavi(); ?>
     </div>
   </div>
 </main>
-
 <?php get_footer(); ?>

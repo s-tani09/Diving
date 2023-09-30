@@ -32,7 +32,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
       alt="綺麗なエメラルドグリーンの海底を歩くウミガメ" />
   </div>
 </div>
-<!-- main visual -->
+
 <div class="mv">
   <div class="mv__inner">
     <div class="mv__slider swiper js-mv-slider">
@@ -64,7 +64,6 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
   </div>
 </div>
 
-<!-- campaign -->
 <section class="campaign top-campaign">
   <div class="campaign__inner inner">
     <div class="campaign__title section-title">
@@ -95,33 +94,31 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
           <div class="campaign-card__body">
             <div class="campaign-card__category">
               <?php
-            $terms = get_the_terms($post->ID, 'campaign_category');
-            foreach ($terms as $term) :
-              echo $term->name;
-            endforeach; ?>
+              $terms = get_the_terms($post->ID, 'campaign_category');
+              foreach ($terms as $term) :
+                echo $term->name;
+                endforeach; ?>
             </div>
             <h3 class="campaign-card__title"><?php the_title(); ?></h3>
           </div>
           <div class="campaign-card__textBlock">
             <p class="campaign-card__text">全部コミコミ(お一人様)</p>
             <div class="campaign-card__price">
-              <div class="campaign-card__price">
-                <?php
+              <?php
                 $amount = get_field('amount');
                 if ($amount) :
-                  $price = $amount['price'];
+                  $price_regular = $amount['price_regular'];
                   $price_sale = $amount['price_sale']; ?>
-                <p class="campaign-card__price-regular">&yen;<?php echo number_format($price); ?></p>
-                <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
-                <?php endif; ?>
-              </div>
+              <p class="campaign-card__price-regular">&yen;<?php echo number_format($price_regular); ?></p>
+              <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
+              <?php endif; ?>
             </div>
           </div>
         </li>
         <?php endwhile; ?>
-        <?php wp_reset_postdata(); ?>
-        <?php endif; ?>
       </ul>
+      <?php wp_reset_postdata(); ?>
+      <?php endif; ?>
     </div>
     <div class="campaign-button-prev swiper-button-prev js-campaign-button-prev u-desktop"></div>
     <div class="campaign-button-next swiper-button-next js-campaign-button-next u-desktop"></div>
@@ -131,7 +128,6 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
   </div>
 </section>
 
-<!-- About us -->
 <section class="about top-about">
   <div class="about__inner inner">
     <div class="about__title section-title">
@@ -161,7 +157,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </section>
-<!-- information -->
+
 <section class="information top-information">
   <div class="information__inner inner">
     <div class="information__title section-title">
@@ -190,7 +186,7 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </section>
-<!-- Blog -->
+
 <section class="blog top-blog">
   <div class="blog__bg-image u-desktop">
     <img src="<?php echo esc_url(get_template_directory_uri()); ?>/dist/assets/images/common/blog-bg.jpg"
@@ -249,18 +245,16 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
       <p class="section-title__main">voice</p>
       <h2 class="section-title__sub">お客様の声</h2>
     </div>
-
-    <?php
-    $args = array(
-      'post_type'  => 'voice',
-      'posts_per_page' => 2,
-      'orderby' => 'rand'
-    );
-    $the_query = new WP_Query($args);
-    ?>
-
-    <?php if ($the_query->have_posts()): ?>
     <div class="voice__cards voice-cards">
+      <?php
+      $args = array(
+        'post_type'  => 'voice',
+        'posts_per_page' => 2,
+        'orderby' => 'rand'
+      );
+      $the_query = new WP_Query($args);
+      ?>
+      <?php if ($the_query->have_posts()): ?>
       <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
       <div class="voice-cards__container voice-card">
         <div class="voice-card__wrap">
@@ -270,14 +264,14 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
                 $age = get_field('voice-age');
                 $gender = get_field('voice-gender'); ?>
               <p class="voice-card__age">
-                <?php if($age): ?><?php echo esc_html($age); ?><?php endif; ?>代(<?php echo esc_html($gender) ?>)</p>
+                <?php if($age): ?><?php echo esc_html($age); ?><?php endif; ?>(<?php echo esc_html($gender) ?>)</p>
               <?php
                 $taxonomy_terms = get_the_terms($post->ID, 'voice_category');
                 if ($taxonomy_terms && !is_wp_error($taxonomy_terms)): ?>
               <p class="voice-card__category"><?php echo esc_html($taxonomy_terms[0]->name); ?></p>
               <?php endif; ?>
             </div>
-            <h3 class="voice-card__title"><?php echo wp_trim_words( esc_html(get_the_title()), 22, '…' ); ?></h3>
+            <h3 class="voice-card__title"><?php the_title(); ?></h3>
           </div>
           <div class="voice-card__image js-colorbox">
             <?php if (has_post_thumbnail()): ?>
@@ -302,7 +296,6 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </section>
-
 
 <section class="price top-price">
   <div class="price__inner inner">

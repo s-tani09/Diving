@@ -167,41 +167,24 @@ function setup_post_thumbnails(){
 }
 add_action('after_setup_theme', 'setup_post_thumbnails');
 
-// カスタム投稿タイプ「campaign」のアーカイブページの投稿表示件数を変更する関数
-function custom_change_campaign_posts_per_page( $query ) {
-	// 管理画面やカスタムクエリでは実行しない
-	if ( is_admin() || ! $query->is_main_query() ) {
-			return;
-	}
-	// 「campaign」投稿タイプのアーカイブページのみ対象とする
-	if ( $query->is_post_type_archive( 'campaign' ) ) {
-			// 投稿表示件数を4件に設定
-			$query->set( 'posts_per_page', 4 );
-	}
-	if ( $query->is_tax( 'campaign_category' ) ) {
-			// 投稿表示件数を4件に設定
-			$query->set( 'posts_per_page', 4 );
-	}
-}
-add_action( 'pre_get_posts', 'custom_change_campaign_posts_per_page' );
+// カスタム投稿タイプとタクソノミーページの投稿表示件数を変更する関数
+function custom_change_posts_per_page($query) {
+	if (is_admin() || !$query->is_main_query()) return;
 
-// ポストタイプアーカイブページの投稿表示件数を変更する関数
-function custom_change_posts_per_page( $query ) {
-	// 管理画面やカスタムクエリでは実行しない
-	if ( is_admin() || ! $query->is_main_query() ) {
-			return;
-	}
-	// 「voice」投稿タイプのアーカイブページのみ対象とする
-	if ( $query->is_post_type_archive( 'voice' ) ) {
-			// 投稿表示件数を6件に設定
-			$query->set( 'posts_per_page', 6 );
-	}
-	if ( $query->is_tax( 'voice_category' ) ) {
-			// 投稿表示件数を6件に設定
-			$query->set( 'posts_per_page', 6 );
+	$post_types = [
+			'campaign' => 4,
+			'voice'    => 6,
+	];
+
+	foreach ($post_types as $post_type => $posts_per_page) {
+			if ($query->is_post_type_archive($post_type) || $query->is_tax("{$post_type}_category")):
+					$query->set('posts_per_page', $posts_per_page);
+					break;
+			endif;
 	}
 }
-add_action( 'pre_get_posts', 'custom_change_posts_per_page' );
+
+add_action('pre_get_posts', 'custom_change_posts_per_page');
 
 // Contact Form7の送信ボタンをクリックした後の遷移先設定
 add_action( 'wp_footer', 'add_origin_thanks_page' );
@@ -241,7 +224,7 @@ function Change_menulabel() {
 }
 function Change_objectlabel() {
 	global $wp_post_types;
-	$name = 'お知らせ';
+	$name = 'ブログ';
 	$labels = &$wp_post_types['post']->labels;
 	$labels->name = $name;
 	$labels->singular_name = $name;
@@ -292,38 +275,104 @@ function dynamic_field_values ( $tag, $unused ) {
 }
 add_filter( 'wpcf7_form_tag', 'dynamic_field_values', 10, 2);
 
-// 記事のPVを取得
-function getPostViews($postID) {
-	$count_key = 'post_views_count';
-	$count = get_post_meta($postID, $count_key, true);
-	if ($count=='') {
-		delete_post_meta($postID, $count_key);
-		add_post_meta($postID, $count_key, '0');
-		return "0 View";
-	}
-	return $count.' Views';
+// 閲覧数を取得する関数
+function get_post_views($post_id) {
+	return get_post_meta($post_id, 'post_views_count', true) ?: '0';
 }
 
-// 記事のPVをカウントする
-function setPostViews($postID) {
-	$count_key = 'post_views_count';
-	$count = get_post_meta($postID, $count_key, true);
-	if ($count=='') {
-		$count = 0;
-		delete_post_meta($postID, $count_key);
-		add_post_meta($postID, $count_key, '0');
-	} else {
-		$count++;
-		update_post_meta($postID, $count_key, $count);
+// 閲覧数を保存する関数
+function set_post_views($post_id) {
+	$count = get_post_meta($post_id, 'post_views_count', true) ?: 0;
+	update_post_meta($post_id, 'post_views_count', $count + 1);
+}
+
+// タグ削除
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+// カラム追加
+function add_post_views_column($columns) {
+	$columns['post_views'] = '閲覧数';
+	return $columns;
+}
+
+// カラム表示
+function display_post_views($column, $post_id) {
+	if ($column === 'post_views') {
+			echo get_post_views($post_id);
 	}
 }
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 
-/* 料金一覧*/
+// カラムクリックでソート
+function make_post_views_sortable($columns) {
+	$columns['post_views'] = 'post_views_count';
+	return $columns;
+}
+
+// 投稿一覧のみに適用
+function limit_to_posts($query) {
+	global $pagenow;
+	if (is_admin() && $pagenow == 'edit.php' && isset($query->query['post_type']) && $query->query['post_type'] == 'post') {
+			add_filter('manage_posts_columns', 'add_post_views_column');
+			add_action('manage_posts_custom_column', 'display_post_views', 10, 2);
+			add_filter('manage_edit-post_sortable_columns', 'make_post_views_sortable');
+	}
+}
+
+add_action('pre_get_posts', 'limit_to_posts');
+
+// 料金一覧
 SCF::add_options_page( '', '料金一覧', 'manage_options', 'theme-options-price', 'dashicons-money-alt', 9 );
 
-/* よくある質問*/
+// よくある質問
 SCF::add_options_page( '', 'よくある質問', 'manage_options', 'theme-options-faq', 'dashicons-format-chat', 9 );
 
-/* 私たちについて*/
+// 私たちについて
 SCF::add_options_page( '', 'ギャラリー', 'manage_options', 'theme-options-gallery', 'dashicons-format-gallery', 9 );
+
+// サムネイル・文字数 カラムに追加
+function add_posts_columns($columns) {
+	$columns['thumbnail'] = 'アイキャッチ';
+
+	return $columns;
+}
+function add_posts_columns_row($column_name, $post_id) {
+	if ( 'thumbnail' == $column_name ) {
+			$thumb = get_the_post_thumbnail($post_id, array(100,100), 'thumbnail');
+			echo ( $thumb ) ? $thumb : '-';
+	} elseif ( 'postid' == $column_name ) {
+			echo $post_id;
+	} elseif ( 'count' == $column_name ) {
+			$count = mb_strlen(strip_tags(get_post_field('post_content', $post_id)));
+			echo $count;
+	}
+}
+add_filter( 'manage_posts_columns', 'add_posts_columns' );
+add_action( 'manage_posts_custom_column', 'add_posts_columns_row', 10, 2 );
+
+// 固定ページの不要な項目を非表示にする
+function my_remove_post_editor_support() {
+remove_post_type_support( 'voice', 'editor' ); // 本文
+remove_post_type_support( 'campaign', 'editor' ); // 本文
+}
+add_action( 'init' , 'my_remove_post_editor_support' );
+
+function custom_admin_notice() {
+	global $pagenow, $post_type;
+
+	// 'post.php' または 'post-new.php' かつ指定の投稿タイプの場合
+	if (($pagenow === 'post.php' || $pagenow === 'post-new.php') && in_array($post_type, ['voice', 'campaign'])) {
+			?>
+<script>
+jQuery(document).ready(function($) {
+  // タイトルフィールドのラベルを取得
+  var titleLabel = $('label[for="title"]').text();
+  // 新しいラベルと説明文を設定
+  $('label[for="title"]').text(titleLabel + ' (<?php echo ($post_type === "voice") ? "22" : "30"; ?>文字以内)');
+  $('#titlewrap').after(
+    '<p class="description">タイトルは<?php echo ($post_type === "voice") ? "22" : "30"; ?>文字以内で入力してください。</p>');
+});
+</script>
+<?php
+	}
+}
+add_action('admin_notices', 'custom_admin_notice');

@@ -17,7 +17,6 @@
   </div>
   <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
-
   <section class="post-blog sub-blog">
     <div class="post-blog__inner inner">
       <div>
@@ -26,17 +25,18 @@
       <div class="post-blog__contents">
         <div class="post-blog__main">
           <ul class="post-blog__items blog-cards blog-cards--2column">
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <?php if (have_posts()) : ?>
+            <?php while (have_posts()) : the_post(); ?>
             <li class="blog-cards__item blog-card">
               <a href="<?php the_permalink(); ?>">
                 <div class="blog-card__container">
                   <div class="blog-card__image blog-card__image--large">
-                    <?php if (has_post_thumbnail()) : ?>
+                    <?php if (has_post_thumbnail()) { ?>
                     <?php the_post_thumbnail('medium'); ?>
-                    <?php else : ?>
+                    <?php } else { ?>
                     <img src="<?php echo esc_url(get_theme_file_uri('')); ?>/dist/assets/images/common/no-image.jpg"
                       alt="画像なし">
-                    <?php endif; ?>
+                    <?php } ?>
                   </div>
                   <div class="blog-card__body">
                     <div class="blog-card__meta">
@@ -44,14 +44,15 @@
                         datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y.m.d'); ?></time>
                     </div>
                     <div class="blog-card__text-block">
-                      <h3 class="blog-card__title"><?php echo wp_trim_words(get_the_title(), 15, '…'); ?></h3>
+                      <h3 class="blog-card__title"><?php echo wp_trim_words(get_the_title(), 32, '…'); ?></h3>
                       <p class="blog-card__text"><?php the_excerpt(); ?></p>
                     </div>
                   </div>
                 </div>
               </a>
             </li>
-            <?php endwhile; else : ?>
+            <?php endwhile; ?>
+            <?php else: ?>
             <p>記事が見つかりませんでした</p>
             <?php endif; ?>
           </ul>
@@ -67,6 +68,5 @@
       </div>
     </div>
   </section>
-
 </main>
 <?php get_footer(); ?>

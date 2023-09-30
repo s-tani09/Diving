@@ -164,7 +164,7 @@ const browserSyncOption = {
   notify: false,
   server: "../dist/", // ローカルサーバーのルートディレクトリ
   //WordPressの場合は↓を有効にする。その場合、↑(server)はコメントアウトする。
-  // proxy: "http://localhost:8888", // ローカルサーバーのURL（WordPress）
+  // proxy: "https://xs040588.xsrv.jp/portfolio", // ローカルサーバーのURL（WordPress）
 };
 const browserSyncFunc = () => {
   browserSync.init(browserSyncOption);

@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 <main>
-
   <div class="sub-mv">
     <div class="sub-mv__inner">
       <div class="sub-mv__image">
@@ -16,14 +15,11 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
+
   <?php get_template_part('parts/breadcrumb') ?>
 
   <div class="page-contact sub-page-contact">
     <div class="page-contact__inner inner">
-      <!-- <div class="page-contact__error">
-        <p class="page-contact__error-text">&#x203B;必須項目が入力されていません。<br class="u-mobile" />入力してください。</p>
-      </div> -->
       <?php echo do_shortcode('[contact-form-7 id="172da36" title="お問い合わせ"]'); ?>
     </div>
   </div>
