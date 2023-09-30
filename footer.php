@@ -140,13 +140,13 @@ $sitemap = esc_url( home_url( '/site-map/' ) );
             <a href="<?php echo $price; ?>">料金一覧</a>
           </li>
           <li class="footer-nav__right-item">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>price#license>">ライセンス講習</a>
+            <a href="<?php echo $price; ?>/price#license">ライセンス講習</a>
           </li>
           <li class="footer-nav__right-item">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>price#experience">体験ダイビング</a>
+            <a href="<?php echo $price; ?>/price#experience">体験ダイビング</a>
           </li>
           <li class="footer-nav__right-item">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>price#diving">ファンダイビング</a>
+            <a href="<?php echo $price; ?>/price#diving">ファンダイビング</a>
           </li>
         </ul>
         <ul class="footer-nav__right-items">

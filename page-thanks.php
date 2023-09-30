@@ -4,7 +4,6 @@ Template Name: お問い合わせ(送信完了)
 */
 get_header();
 ?>
-
 <main>
   <div class="sub-mv">
     <div class="sub-mv__inner">
@@ -21,9 +20,7 @@ get_header();
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
-
   <div class="contact-thanks sub-contact-thanks">
     <div class="contact-thanks__inner inner">
       <div class="contact-thanks__contents">

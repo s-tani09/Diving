@@ -21,7 +21,6 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <section class="post-blog sub-blog">
     <div class="post-blog__inner inner">

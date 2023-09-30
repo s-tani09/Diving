@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+
 <main>
   <div class="sub-mv">
     <div class="sub-mv__inner">
@@ -40,7 +41,7 @@
                         datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y.m.d'); ?></time>
                     </div>
                     <div class="blog-card__text-block">
-                      <h3 class="blog-card__title"><?php echo wp_trim_words(get_the_title(), 15, '…'); ?></h3>
+                      <h3 class="blog-card__title"><?php echo wp_trim_words(get_the_title(), 17, '…'); ?></h3>
                       <p class="blog-card__text"><?php the_excerpt(); ?></p>
                     </div>
                   </div>

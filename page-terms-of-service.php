@@ -15,7 +15,6 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <section class="terms-of-service sub-terms-of-service">
     <div class="terms-of-service__inner inner">

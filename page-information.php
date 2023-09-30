@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <main>
   <div class="sub-mv">
     <div class="sub-mv__inner">
@@ -16,7 +15,6 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <section class="page-information sub-page-information">
     <div class="page-information__inner inner">

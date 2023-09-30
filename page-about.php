@@ -15,9 +15,7 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
-
   <section class="page-about sub-page-about">
     <div class="page-about__inner inner">
       <div class="page-about__image-box">
@@ -52,15 +50,19 @@
         <div class="about-gallery__modal js-modal-window"></div>
         <div class="about-gallery__image-items">
           <?php
-          $gallery_images = SCF::get_option_meta('theme-options-gallery' , 'gallery-images');
-          foreach ($gallery_images as $gallery):
-            $gallery_item = wp_get_attachment_image_src($gallery['gallery_item'], 'full');
-            $alt_text = get_post_meta($gallery['gallery_item'], '_wp_attachment_image_alt', true); // 画像の代替テキストを取得
-            if ($gallery_item): ?>
+        $gallery_images = SCF::get_option_meta('theme-options-gallery' , 'gallery-images');
+        foreach ($gallery_images as $gallery):
+          $gallery_item = wp_get_attachment_image_src($gallery['gallery_item'], 'full');
+				  $alt_text = get_post_meta($gallery['gallery_item'], '_wp_attachment_image_alt', true); // 画像の代替テキストを取得
+          if ($gallery_item):
+        ?>
           <li class="about-gallery__image-item js-modal">
             <img src="<?= esc_url($gallery_item[0]) ?>" alt="<?= esc_attr($alt_text) ?>">
           </li>
-          <?php endif; endforeach; ?>
+          <?php
+          endif;
+        endforeach;
+        ?>
         </div>
       </div>
     </div>

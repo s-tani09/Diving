@@ -31,7 +31,6 @@ $sitemap = esc_url( home_url( '/site-map/' ) );
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <div class="page-site-map sub-site-map">
     <div class="page-site-map__inner inner">
@@ -116,7 +115,6 @@ $sitemap = esc_url( home_url( '/site-map/' ) );
               <a href="<?php echo $terms; ?>">利用規約</a>
             </li>
           </ul>
-
           <ul class="site-map__right-items">
             <li class="site-map__right-item">
               <a href="<?php echo $contact; ?>">お問い合わせ</a>

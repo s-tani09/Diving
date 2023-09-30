@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 <?php
-$contact = esc_url(home_url('/contact/'));
+$home_url = esc_url(home_url('/'));
+$contact_url = esc_url(home_url('/contact/'));
 ?>
 <main>
   <div class="sub-mv">
@@ -18,7 +19,6 @@ $contact = esc_url(home_url('/contact/'));
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <section class="archive-campaign sub-campaign">
     <div class="archive-campaign__inner inner">
@@ -26,23 +26,25 @@ $contact = esc_url(home_url('/contact/'));
         <div class="categories__inner">
           <ul class="categories__items" id="categories">
             <li
-              class="categories__item <?php if (is_front_page() || is_post_type_archive('campaign')) echo 'current'; ?>">
+              class="categories__item <?php echo (is_front_page() || is_post_type_archive('campaign')) ? 'current' : ''; ?>">
               <a class="js-categories-item" href="<?php echo esc_url(home_url('/campaign/')); ?>">ALL</a>
             </li>
             <?php
             $args = [
               'taxonomy' => 'campaign_category'
             ];
-            $terms = get_terms($args); ?>
+            $terms = get_terms($args);
+            ?>
             <?php foreach ($terms as $term): ?>
             <?php
               $term_link = get_term_link($term->term_id);
-              if (is_wp_error($term_link)) continue; // エラーチェック
+              if (!is_wp_error($term_link)) :
               ?>
-            <li class="categories__item <?php if (is_tax('campaign_category', $term->slug)) echo 'current'; ?>">
+            <li class="categories__item <?php echo (is_tax('campaign_category', $term->slug)) ? 'current' : ''; ?>">
               <a class="js-categories-item"
                 href="<?php echo esc_url($term_link); ?>"><?php echo esc_html($term->name); ?></a>
             </li>
+            <?php endif; ?>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -61,14 +63,15 @@ $contact = esc_url(home_url('/contact/'));
           <div class="campaign-card__body campaign-card__body--sub">
             <div class="campaign-card__category">
               <?php
-					$terms = get_the_terms($post->ID, 'campaign_category');
-					if ($terms && !is_wp_error($terms)):
-					$term_names = array();
-					foreach ($terms as $term):
-					$term_names[] = esc_html($term->name);
-					endforeach;
-					echo implode(', ', $term_names);
-					endif; ?>
+                  $terms = get_the_terms($post->ID, 'campaign_category');
+                  if ($terms && !is_wp_error($terms)):
+                    $term_names = array();
+                    foreach ($terms as $term):
+                      $term_names[] = esc_html($term->name);
+                    endforeach;
+                    echo implode(', ', $term_names);
+                  endif;
+                  ?>
             </div>
             <h2 class="campaign-card__title campaign-card__title--sub"><?php the_title(); ?></h2>
           </div>
@@ -76,10 +79,11 @@ $contact = esc_url(home_url('/contact/'));
             <p class="campaign-card__text">全部コミコミ(お一人様)</p>
             <div class="campaign-card__price campaign-card__price--sub">
               <?php
-						$amount = get_field('amount');
-						if ($amount) :
-						$price_regular = $amount['price_regular'];
-						$price_sale = $amount['price_sale']; ?>
+                  $amount = get_field('amount');
+                  if ($amount) :
+                    $price_regular = $amount['price_regular'];
+                    $price_sale = $amount['price_sale'];
+                    ?>
               <p class="campaign-card__price-regular">&yen;<?php echo number_format($price_regular); ?></p>
               <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
               <?php endif; ?>
@@ -88,18 +92,19 @@ $contact = esc_url(home_url('/contact/'));
           </div>
           <div class="campaign-card__guidance u-desktop">
             <?php
-					$campaign_period = get_field('campaign_period');
-					if ($campaign_period && is_array($campaign_period)):
-					$campaign_start_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_start']));
-					$campaign_end_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_end']));
-					$message = esc_html("$campaign_start_date - $campaign_end_date");
-					else:
-					$message = 'キャンペーンを終了いたしました.';
-					endif; ?>
+                $campaign_period = get_field('campaign_period');
+                if ($campaign_period && is_array($campaign_period)):
+                  $campaign_start_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_start']));
+                  $campaign_end_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_end']));
+                  $message = esc_html("$campaign_start_date - $campaign_end_date");
+                else:
+                  $message = 'キャンペーンを終了いたしました.';
+                endif;
+                ?>
             <p class="campaign-card__period"><?php echo $message; ?></p>
             <p class="campaign-card__reserve">ご予約・お問い合わせはコチラ</p>
             <div class="campaign-card__button">
-              <a href="<?php echo esc_url($contact); ?>" class="button"><span>contact&nbsp;us</span></a>
+              <a href="<?php echo esc_url($contact_url); ?>" class="button"><span>contact&nbsp;us</span></a>
             </div>
           </div>
         </div>

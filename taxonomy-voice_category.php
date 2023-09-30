@@ -33,10 +33,10 @@
             $terms = get_terms($args); ?>
             <?php foreach ($terms as $term): ?>
             <?php
-              $term_link = get_term_link($term->term_id);
-              if (is_wp_error($term_link)) continue; // エラーチェック
-              ?>
-            <li class="categories__item <?php if (is_tax('campaign_category', $term->slug)) echo 'current'; ?>">
+            $term_link = get_term_link($term->term_id);
+            if (is_wp_error($term_link)) continue; // エラーチェック
+            ?>
+            <li class="categories__item <?php if (is_tax('voice_category', $term->slug)) echo 'current'; ?>">
               <a class="js-categories-item"
                 href="<?php echo esc_url($term_link); ?>"><?php echo esc_html($term->name); ?></a>
             </li>
@@ -54,7 +54,8 @@
                 $customer_info = get_field('customer_info'); // グループフィールド 'customer_info' を取得
                 // グループフィールド内のサブフィールドを取得
                 $age = isset($customer_info['voice-age']) ? esc_html($customer_info['voice-age']) : '';
-                $gender = isset($customer_info['voice-gender']) ? esc_html($customer_info['voice-gender']) : ''; ?>
+                $gender = isset($customer_info['voice-gender']) ? esc_html($customer_info['voice-gender']) : '';
+                ?>
                 <p class="voice-card__age"><?php if ($age): ?><?php echo $age; ?><?php endif; ?>(<?php echo $gender; ?>)
                 </p>
                 <?php

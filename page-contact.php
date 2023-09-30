@@ -15,9 +15,7 @@
       </div>
     </div>
   </div>
-
   <?php get_template_part('parts/breadcrumb') ?>
-
   <div class="page-contact sub-page-contact">
     <div class="page-contact__inner inner">
       <?php echo do_shortcode('[contact-form-7 id="172da36" title="お問い合わせ"]'); ?>

@@ -104,14 +104,17 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
           <div class="campaign-card__textBlock">
             <p class="campaign-card__text">全部コミコミ(お一人様)</p>
             <div class="campaign-card__price">
-              <?php
+              <div class="campaign-card__price">
+                <?php
                 $amount = get_field('amount');
-                if ($amount) :
+                if (isset($amount)) :
                   $price_regular = $amount['price_regular'];
-                  $price_sale = $amount['price_sale']; ?>
-              <p class="campaign-card__price-regular">&yen;<?php echo number_format($price_regular); ?></p>
-              <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
-              <?php endif; ?>
+                  $price_sale = $amount['price_sale'];
+                  ?>
+                <p class="campaign-card__price-regular">&yen;<?php echo number_format($price_regular); ?></p>
+                <p class="campaign-card__price-sale">&yen;<?php echo number_format($price_sale); ?></p>
+                <?php endif; ?>
+              </div>
             </div>
           </div>
         </li>

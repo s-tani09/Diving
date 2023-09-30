@@ -16,7 +16,6 @@
       </div>
     </div>
   </div>
-  <!-- パンくず -->
   <?php get_template_part('parts/breadcrumb') ?>
   <section class="archive-campaign sub-campaign">
     <div class="archive-campaign__inner inner">
@@ -53,20 +52,20 @@
             <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('large'); ?>
             <?php else : ?>
-            <img src="<?php echo esc_url(get_theme_file_uri('/dist/assets/images/common/no-image.jpg')); ?>" alt="画像無し">
+            <img src="<?php echo esc_url(get_theme_file_uri('')); ?>/dist/assets/images/common/no-image.jpg" alt="画像無し">
             <?php endif; ?>
           </div>
           <div class="campaign-card__body campaign-card__body--sub">
             <div class="campaign-card__category">
               <?php
-					$terms = get_the_terms($post->ID, 'campaign_category');
-					if ($terms && !is_wp_error($terms)):
-					$term_names = array();
-					foreach ($terms as $term):
-					$term_names[] = esc_html($term->name);
-					endforeach;
-					echo implode(', ', $term_names);
-					endif; ?>
+              $terms = get_the_terms($post->ID, 'campaign_category');
+              if ($terms && !is_wp_error($terms)):
+                $term_names = array();
+                foreach ($terms as $term):
+                  $term_names[] = esc_html($term->name);
+                endforeach;
+                echo implode(', ', $term_names);
+                endif; ?>
             </div>
             <h2 class="campaign-card__title campaign-card__title--sub"><?php the_title(); ?></h2>
           </div>
@@ -86,14 +85,14 @@
           </div>
           <div class="campaign-card__guidance u-desktop">
             <?php
-					$campaign_period = get_field('campaign_period');
-					if ($campaign_period && is_array($campaign_period)):
-					$campaign_start_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_start']));
-					$campaign_end_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_end']));
-					$message = esc_html("$campaign_start_date - $campaign_end_date");
-					else:
-					$message = 'キャンペーンを終了いたしました.';
-					endif; ?>
+            $campaign_period = get_field('campaign_period');
+            if ($campaign_period && is_array($campaign_period)):
+              $campaign_start_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_start']));
+              $campaign_end_date = date_i18n('Y/m/d', strtotime($campaign_period['campaign_end']));
+              $message = esc_html("$campaign_start_date - $campaign_end_date");
+            else:
+              $message = 'キャンペーンを終了いたしました.';
+              endif; ?>
             <p class="campaign-card__period"><?php echo $message; ?></p>
             <p class="campaign-card__reserve">ご予約・お問い合わせはコチラ</p>
             <div class="campaign-card__button">
