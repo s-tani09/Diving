@@ -63,7 +63,6 @@ $sitemap = esc_url( home_url( '/sitemap/' ) );
     </div>
   </div>
 </div>
-
 <section class="campaign top-campaign">
   <div class="campaign__inner inner">
     <div class="campaign__title section-title">
